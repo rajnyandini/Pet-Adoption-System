@@ -4,7 +4,7 @@ Welcome to the **Pet Adoption System** 🏡 — a full-stack NoSQL-based web app
 
 ---
 
-## 🎯 Purpose
+##  Purpose
 
 This project is designed to demonstrate the use of **NoSQL databases** in real-world applications. It focuses on building a basic **pet adoption platform** where users can:
 
@@ -18,25 +18,25 @@ All data is stored and managed using **MongoDB** (NoSQL), and interactions are h
 
 ---
 
-## 🚀 Features
+## Features
 
-- ➕ Add pets with name, breed, and age
-- 🧍 Register adopters with name, email, and address
-- 🤝 Perform adoptions by just entering pet and adopter names (no need for IDs!)
-- 🌐 HTML/CSS frontend with forms to interact with the system
-- 🔗 Backend API routes managed using **Express.js**
-- 🛢️ MongoDB as the NoSQL database for data storage
+-  Add pets with name, breed, and age
+-  Register adopters with name, email, and address
+-  Perform adoptions by just entering pet and adopter names (no need for IDs!)
+-  HTML/CSS frontend with forms to interact with the system
+-  Backend API routes managed using **Express.js**
+-  MongoDB as the NoSQL database for data storage
 
 ---
 
 ## 🛠️ Technologies Used
 
-- **Node.js** 🌳
-- **Express.js** 🚂
-- **MongoDB** 🍃
-- **Mongoose** 🔗
-- **Postman** 📬 (for testing backend routes)
-- **HTML5** 🧱 + **CSS3** 🎨 (for frontend)
+- **Node.js** 
+- **Express.js** 
+- **MongoDB** 
+- **Mongoose** 
+- **Postman**  (for testing backend routes)
+- **HTML5**  + **CSS3**  (for frontend)
 
 ---
 
@@ -52,7 +52,7 @@ All data is stored and managed using **MongoDB** (NoSQL), and interactions are h
 
 ## ⚙️ Setup  
 
-Try it here: **[Pet-Adoption-System](https://rajnandiniini.github.io/Pet-Adoption-System/)**  
+Try it here: **[Pet-Adoption-System](https://rajnyandini.github.io/Pet-Adoption-System/)**  
 
 
 
