@@ -1,6 +1,6 @@
 # 🐾 Pet Adoption System
 
-Welcome to the **Pet Adoption System** 🏡 — a full-stack NoSQL-based web application where users can add pets, register adopters, and complete adoptions using simple form inputs! Built using **MongoDB**, **Node.js**, **Express.js**, **Postman**, and a clean **HTML/CSS frontend**.
+Welcome to the **Pet Adoption System** : a full-stack NoSQL-based web application where users can add pets, register adopters, and complete adoptions using simple form inputs! Built using **MongoDB**, **Node.js**, **Express.js**, **Postman**, and a clean **HTML/CSS frontend**.
 
 ---
 
