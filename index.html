@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furever Home - Pet Adoption Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+    --primary: #22324A;           /* Navy Blue */
+    --primary-dark: #181D27;      /* Charcoal */
+    --secondary: #BFAE9C;         /* Warm Taupe */
+    --secondary-dark: #6E6658;    /* Deep Olive */
+    --text: #222222;              /* Graphite */
+    --light-bg: #F6F5F2;          /* Soft Ivory */
+    --light-grey: #E2E4EA;        /* Mist Grey */
+    --danger: #A23E48;            /* Burgundy */
+    --card-shadow: 0 4px 12px rgba(34, 50, 74, 0.10);
+    --transition: all 0.3s ease;
+}
+
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: var(--card-shadow);
+            padding: 28px 0 18px 0;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+
+        .site-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .site-title i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #b07fa6;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background-color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(244, 143, 177, 0.10);
+            color: var(--text);
+        }
+
+        .tab.active {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        .tab:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card {
+            background-color: var(--light-grey);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--card-shadow);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .pet-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid #f8bbd0;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(244, 143, 177, 0.12);
+        }
+
+        .pet-img {
+            height: 200px;
+            background-color: var(--secondary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pet-img i {
+            font-size: 5rem;
+            color: #f8bbd0;
+        }
+        .pet-img img {
+            max-height: 180px;
+            max-width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .pet-details {
+            padding: 20px;
+        }
+
+        .pet-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .pet-meta {
+            margin-bottom: 15px;
+        }
+
+        .pet-meta span {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 15px;
+            color: #b07fa6;
+            font-size: 0.9rem;
+        }
+
+        .pet-meta i {
+            margin-right: 5px;
+            color: var(--primary-dark);
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-available {
+            background-color: var(--secondary-dark);
+            color: white;
+        }
+
+        .status-adopted {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .adopter-card {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 15px;
+            background-color: white;
+            transition: var(--transition);
+            border: 1px solid #f8bbd0;
+        }
+
+        .adopter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(244, 143, 177, 0.15);
+        }
+
+        .adopter-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .adopter-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .adopter-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .adopter-info i {
+            color: var(--primary);
+            width: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #f8bbd0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            background: #fffafd;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary-dark);
+            outline: none;
+            box-shadow: 0 0 0 3px #f8bbd033;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background-color: var(--primary-dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border-left: 5px solid var(--primary-dark);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            font-size: 1.5rem;
+        }
+
+        .notification.success {
+            border-color: var(--secondary-dark);
+        }
+
+        .notification.success i {
+            color: var(--secondary-dark);
+        }
+
+        .notification.error {
+            border-color: var(--danger);
+        }
+
+        .notification.error i {
+            color: var(--danger);
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+            color: #b07fa6;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #f8bbd0;
+        }
+
+        .empty-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #b07fa6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .pet-img {
+                height: 160px;
+            }
+            .tabs {
+                flex-wrap: wrap;
+            }
+            .tab {
+                flex: 1;
+                min-width: 120px;
+                padding: 10px;
+                text-align: center;
+            }
+        }
+        @media (max-width: 576px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="site-title">
+                <i class="fas fa-paw"></i>
+                <h1>Furever Home</h1>
+            </div>
+            <p class="subtitle">Find your perfect companion today</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="available-pets">Available Pets</button>
+            <button class="tab" data-tab="adopters">Adopters</button>
+            <button class="tab" data-tab="add-pet">Add Pet</button>
+            <button class="tab" data-tab="add-adopter">Add Adopter</button>
+            <button class="tab" data-tab="adopt-pet">Adopt Pet</button>
+        </div>
+
+        <div id="available-pets" class="tab-content active">
+            <div class="card">
+                <h2>Available Pets</h2>
+                <div id="petsList" class="grid">
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <p class="empty-text">Loading available pets...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="adopters" class="tab-content">
+            <div class="card">
+                <h2>Our Adopters</h2>
+                <div id="adoptersList">
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <p class="empty-text">Loading adopters...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="add-pet" class="tab-content">
+            <div class="card">
+                <h2>Add a New Pet</h2>
+                <form id="addPetForm">
+                    <div class="pet-image-preview" id="petImagePreview" style="display:none;">
+                        <img id="previewImg" alt="Pet Image Preview">
+                        <span id="previewName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="petImage">Pet Image</label>
+                        <input type="file" id="petImage" accept="image/*">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="petName">Pet Name</label>
+                            <input type="text" id="petName" placeholder="Enter pet name">
+                        </div>
+                        <div class="form-group">
+                            <label for="petType">Pet Type</label>
+                            <select id="petType">
+                                <option value="">Select pet type</option>
+                                <option value="Dog">Dog</option>
+                                <option value="Cat">Cat</option>
+                                <option value="Bird">Bird</option>
+                                <option value="Rabbit">Rabbit</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="petAge">Pet Age</label>
+                            <input type="number" id="petAge" placeholder="Enter pet age">
+                        </div>
+                        <div class="form-group">
+                            <label for="petBreed">Pet Breed</label>
+                            <input type="text" id="petBreed" placeholder="Enter pet breed">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-block btn-secondary" onclick="addPet()">
+                        <i class="fas fa-plus"></i> Add Pet
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="add-adopter" class="tab-content">
+            <div class="card">
+                <h2>Register as an Adopter</h2>
+                <form id="addAdopterForm">
+                    <div class="form-group">
+                        <label for="adopterName">Full Name</label>
+                        <input type="text" id="adopterName" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="adopterEmail">Email Address</label>
+                        <input type="email" id="adopterEmail" placeholder="Enter your email address">
+                    </div>
+                    <div class="form-group">
+                        <label for="adopterAddress">Home Address</label>
+                        <textarea id="adopterAddress" rows="3" placeholder="Enter your complete address"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-block" onclick="addAdopter()">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="adopt-pet" class="tab-content">
+            <div class="card">
+                <h2>Adopt a Pet</h2>
+                <form id="adoptPetForm">
+                    <div class="form-group">
+                        <label for="petNameForAdoption">Pet Name</label>
+                        <select id="petNameForAdoption">
+                            <option value="">Select a pet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="adopterNameForAdoption">Adopter Name</label>
+                        <select id="adopterNameForAdoption">
+                            <option value="">Select an adopter</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-block" onclick="adoptPet()">
+                        <i class="fas fa-heart"></i> Complete Adoption
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="notification" class="notification">
+            <i class="fas fa-check-circle"></i>
+            <div class="notification-content">
+                <p id="notification-message"></p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Furever Home Pet Adoption Center. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const apiUrl = 'http://localhost:3000'; // Backend API URL
+        let pets = [];
+        let adopters = [];
+
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.dataset.tab;
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notification-message');
+            notification.className = 'notification';
+            notification.classList.add(type);
+            notificationMessage.textContent = message;
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Get pet icon based on type
+        function getPetIcon(type) {
+            switch(type.toLowerCase()) {
+                case 'dog': return 'fa-dog';
+                case 'cat': return 'fa-cat';
+                case 'bird': return 'fa-dove';
+                case 'rabbit': return 'fa-rabbit';
+                default: return 'fa-paw';
+            }
+        }
+
+        // Function to load pets from the backend
+        function loadPets() {
+            fetch(`${apiUrl}/pets`)
+                .then(response => response.json())
+                .then(data => {
+                    pets = data;
+                    const petsList = document.getElementById('petsList');
+                    petsList.innerHTML = '';
+                    const petSelect = document.getElementById('petNameForAdoption');
+                    petSelect.innerHTML = '<option value="">Select a pet</option>';
+
+                    if (pets.length === 0) {
+                        petsList.innerHTML = `
+                            <div class="empty-state">
+                                <i class="fas fa-search"></i>
+                                <p class="empty-text">No pets available at the moment</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    pets.forEach(pet => {
+                        const petCard = document.createElement('div');
+                        petCard.className = 'pet-card';
+                        const statusClass = pet.adopted ? 'status-adopted' : 'status-available';
+                        const statusText = pet.adopted ? 'Adopted' : 'Available';
+                        const petIcon = getPetIcon(pet.type);
+
+                        let imgHtml = '';
+                        if (pet.imageUrl) {
+                            imgHtml = `<img src="${pet.imageUrl}" alt="${pet.name}">`;
+                        } else {
+                            imgHtml = `<i class="fas ${petIcon}"></i>`;
+                        }
+
+                        petCard.innerHTML = `
+                            <div class="pet-img">
+                                ${imgHtml}
+                            </div>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                            <div class="pet-details">
+                                <h3 class="pet-name">${pet.name}</h3>
+                                <div class="pet-meta">
+                                    <span><i class="fas fa-paw"></i> ${pet.type}</span>
+                                    <span><i class="fas fa-birthday-cake"></i> ${pet.age} years</span>
+                                </div>
+                                <p><strong>Breed:</strong> ${pet.breed}</p>
+                            </div>
+                        `;
+                        petsList.appendChild(petCard);
+
+                        if (!pet.adopted) {
+                            const option = document.createElement('option');
+                            option.value = pet.name;
+                            option.textContent = `${pet.name} (${pet.type}, ${pet.age} years)`;
+                            petSelect.appendChild(option);
+                        }
+                    });
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                    showNotification('Failed to load pets. Please try again.', 'error');
+                });
+        }
+
+        // Function to load adopters from the backend
+        function loadAdopters() {
+            fetch(`${apiUrl}/adopters`)
+                .then(response => response.json())
+                .then(data => {
+                    adopters = data;
+                    const adoptersList = document.getElementById('adoptersList');
+                    adoptersList.innerHTML = '';
+                    const adopterSelect = document.getElementById('adopterNameForAdoption');
+                    adopterSelect.innerHTML = '<option value="">Select an adopter</option>';
+
+                    if (adopters.length === 0) {
+                        adoptersList.innerHTML = `
+                            <div class="empty-state">
+                                <i class="fas fa-users"></i>
+                                <p class="empty-text">No adopters registered yet</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    adopters.forEach(adopter => {
+                        const adopterCard = document.createElement('div');
+                        adopterCard.className = 'adopter-card';
+                        adopterCard.innerHTML = `
+                            <h3 class="adopter-name">${adopter.name}</h3>
+                            <div class="adopter-info">
+                                <span><i class="fas fa-envelope"></i> ${adopter.email}</span>
+                                <span><i class="fas fa-map-marker-alt"></i> ${adopter.address}</span>
+                            </div>
+                        `;
+                        adoptersList.appendChild(adopterCard);
+
+                        const option = document.createElement('option');
+                        option.value = adopter.name;
+                        option.textContent = adopter.name;
+                        adopterSelect.appendChild(option);
+                    });
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                    showNotification('Failed to load adopters. Please try again.', 'error');
+                });
+        }
+
+        // Add a new pet (with image upload)
+        function addPet() {
+            const name = document.getElementById('petName').value.trim();
+            const type = document.getElementById('petType').value.trim();
+            const age = document.getElementById('petAge').value.trim();
+            const breed = document.getElementById('petBreed').value.trim();
+            const imageInput = document.getElementById('petImage');
+            let imageUrl = '';
+
+            if (!name || !type || !age || !breed) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+
+            // Handle image upload (base64 for demo; for production, use server upload)
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageUrl = e.target.result;
+                    sendPet({ name, type, age: parseInt(age), breed, imageUrl });
+                };
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                sendPet({ name, type, age: parseInt(age), breed, imageUrl: '' });
+            }
+        }
+
+        function sendPet(petData) {
+            fetch(`${apiUrl}/pets`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(petData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                showNotification('Pet added successfully!');
+                document.getElementById('addPetForm').reset();
+                document.getElementById('petImagePreview').style.display = 'none';
+                document.querySelector('[data-tab="available-pets"]').click();
+                loadPets();
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                showNotification('Error adding pet: ' + err.message, 'error');
+            });
+        }
+
+        // Add a new adopter
+        function addAdopter() {
+            const name = document.getElementById('adopterName').value.trim();
+            const email = document.getElementById('adopterEmail').value.trim();
+            const address = document.getElementById('adopterAddress').value.trim();
+
+            if (!name || !email || !address) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showNotification('Please enter a valid email address', 'error');
+                return;
+            }
+
+            const adopterData = { name, email, address };
+
+            fetch(`${apiUrl}/adopters`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(adopterData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                showNotification('Adopter registered successfully!');
+                document.getElementById('addAdopterForm').reset();
+                document.querySelector('[data-tab="adopters"]').click();
+                loadAdopters();
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                showNotification('Error registering adopter: ' + err.message, 'error');
+            });
+        }
+
+        // Perform adoption
+        function adoptPet() {
+            const petName = document.getElementById('petNameForAdoption').value;
+            const adopterName = document.getElementById('adopterNameForAdoption').value;
+
+            if (!petName || !adopterName) {
+                showNotification('Please select both a pet and an adopter', 'error');
+                return;
+            }
+
+            const adoptionData = { petName, adopterName };
+
+            fetch(`${apiUrl}/adopt`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(adoptionData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                showNotification(data.message || 'Adoption completed successfully!');
+                document.getElementById('adoptPetForm').reset();
+                document.querySelector('[data-tab="available-pets"]').click();
+                loadPets();
+                loadAdopters();
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                showNotification('Error processing adoption: ' + err.message, 'error');
+            });
+        }
+
+        // Pet image preview
+        document.getElementById('petImage').addEventListener('change', function(e) {
+            const previewDiv = document.getElementById('petImagePreview');
+            const previewImg = document.getElementById('previewImg');
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    previewImg.src = ev.target.result;
+                    previewDiv.style.display = 'flex';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewDiv.style.display = 'none';
+            }
+        });
+
+        // Load pets and adopters when the page loads
+        window.onload = function() {
+            loadPets();
+            loadAdopters();
+        };
+    </script>
+</body>
+</html>
