@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express');
 const router = express.Router();
 const Adoption = require('../models/adoption');
@@ -21,3 +22,28 @@ router.get('/', async (req, res) => {
 });
 
 module.exports = router;
+=======
+const express = require('express');
+const router = express.Router();
+const Adoption = require('../models/adoption');
+const Pet = require('../models/pet');
+
+router.post('/', async (req, res) => {
+  const adoption = new Adoption(req.body);
+  await adoption.save();
+
+  // Mark pet as adopted
+  await Pet.findByIdAndUpdate(req.body.petId, { adopted: true });
+
+  res.send(adoption);
+});
+
+router.get('/', async (req, res) => {
+  const adoptions = await Adoption.find()
+    .populate('petId')
+    .populate('adopterId');
+  res.send(adoptions);
+});
+
+module.exports = router;
+>>>>>>> 27b7249aade7708c1921a3caf6767db29707c3f2
